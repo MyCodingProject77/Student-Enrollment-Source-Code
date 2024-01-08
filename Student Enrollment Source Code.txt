@@ -1,0 +1,86 @@
+
+
+
+
+                 void BindData(){
+
+
+         SqlCommand cnn = new SqlCommand("select * from student_tab", con);
+
+         SqlDataAdapter da = new SqlDataAdapter(cnn);
+         DataTable table = new DataTable();
+         da.Fill(table);
+
+         dataGridView1.DataSource = table;
+
+
+         
+
+
+
+
+
+       }
+
+
+      Form_Load
+
+      BindData();
+
+
+
+       Add Code
+
+       con.Open();
+
+            SqlCommand cnn = new SqlCommand("insert into student_tab values(@student_id,@student_name,@age,@email,@phone,@course)", con);
+
+            cnn.Parameters.AddWithValue("@Student_ID", int.Parse(textBox1.Text));
+            cnn.Parameters.AddWithValue("@Student_Name", textBox2.Text);
+
+            cnn.Parameters.AddWithValue("@Age", int.Parse(textBox3.Text));
+
+            cnn.Parameters.AddWithValue("@Email", textBox4.Text);
+
+            cnn.Parameters.AddWithValue("@Phone", int.Parse(textBox5.Text));
+
+            cnn.Parameters.AddWithValue("@Course", textBox6.Text);
+
+            
+
+            cnn.ExecuteNonQuery();
+            
+            BindData();
+            con.Close();
+            MessageBox.Show("Record Added Successfully", "Add", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+
+
+
+        New Code
+
+
+         textBox1.Text = "";
+            textBox2.Text = "";
+            textBox3.Text = "";
+            textBox4.Text = "";
+             textBox5.Text = "";
+            textBox6.Text = "";
+            
+            
+
+
+
+        Delete Code
+
+
+       SqlConnection con = new SqlConnection(@"Data Source=DESKTOP-ADG77QL\SQLEXPRESS;Initial Catalog=studentdb;Integrated Security=True");
+
+            con.Open();
+            SqlCommand cnn = new SqlCommand("delete student_tab where student_id=@student_id", con);
+            cnn.Parameters.AddWithValue("@Student_ID", int.Parse(textBox1.Text));
+           
+            cnn.ExecuteNonQuery();
+            con.Close();
+
+           MessageBox.Show("Record Deleted Successfully", "Delete", MessageBoxButtons.OK, MessageBoxIcon.Information);
